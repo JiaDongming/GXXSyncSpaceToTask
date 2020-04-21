@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Untility;
 
 namespace ProjectTransferService
 {
@@ -29,6 +30,10 @@ namespace ProjectTransferService
         public string PlanFinishDate { get; set; }
         [DisplayName("项目级别")]
         public string ProjectLevel { get; set; }
+
+        [DisplayName("主要负责人")]
+        public int? PrimaryOwnerID { get; set; }//主要负责人
+
         [DisplayName("项目经理")]
         public string ProjectManager { get; set; } //项目经理
 
@@ -157,6 +162,7 @@ namespace ProjectTransferService
                 var resource = from m in dbcontext.SubProjectOwners where m.ProjectID == 502 && m.SubProjectID == spaceId select m;
                 var accounttype = from a in dbcontext.AccountTypes where a.ProjectID == 502 select a;
                 var projectMemberList = from a in dbcontext.ProjectMembers where a.ProjectID == 502 select a;
+                var subproject = (from s in dbcontext.SubProject where s.ProjectID == 502 && s.SubProjectID == spaceId select s).SingleOrDefault();
                 if (page1001!=null)
                 {
                     // 项目编码[CustomerFieldTrackExt2].[Custom_3],pageNumber = 1001
@@ -186,6 +192,9 @@ namespace ProjectTransferService
                     //商机编号[CustomerFieldTrackExt2].[Custom_4],pageNumber = 1001
                     this.ShangJiID = page1001.Custom_4;
 
+                    //主要负责人
+                    this.PrimaryOwnerID = subproject.CurrentOwner == -1 || subproject.CurrentOwner ==null? subproject.CreatedByPerson : subproject.CurrentOwner;
+
                 }
                 if (page1002 != null)
                 {
@@ -198,16 +207,22 @@ namespace ProjectTransferService
                     //计划完成时间[CustomerFieldTrackExt2].[Custom_3],pageNumber = 1002
                     this.PlanFinishDate = page1002.Custom_3;
 
-                    //项目经理[CustomerFieldTrackExt2].[Custom_1],pageNumber = 1002
+                    //项目经理[CustomerFieldTrackExt2].[Custom_1],pageNumber = 1002 --Fieldid=1000101
                     this.ProjectManager = page1002.Custom_1;
-                    this.ProjectManagerID = (from c in login where c.FullName == this.ProjectManager select c.PersonID).SingleOrDefault();
+                   // this.ProjectManagerID = (from c in login where c.FullName == this.ProjectManager select c.PersonID).SingleOrDefault();
+                   this.ProjectManagerID = (from c in bugselection where c.FieldID== 1000101 select c.FieldSelectionID).FirstOrDefault();
 
-                    //产品经理(PM)[CustomerFieldTrackExt2].[Custom_5],pageNumber = 1002
+                    //产品经理(PM)[CustomerFieldTrackExt2].[Custom_5],pageNumber = 1002 --Fieldid=1000105
                     this.ProductManager = page1002.Custom_5;
-                    this.ProductManagerID = (from c in login where c.FullName == this.ProductManager select c.PersonID).SingleOrDefault();
+                     //this.ProductManagerID = (from c in login where c.FullName == this.ProductManager select c.PersonID).SingleOrDefault();
+                    this.ProductManagerID = (from c in bugselection where c.FieldID == 1000105 select c.FieldSelectionID).FirstOrDefault();
 
                     //合同额（万）	[CustomerFieldTrackExt2].[Custom_9],pageNumber=1002
                     this.ContractMoney = page1002.Custom_9;
+                    //if (!DataCheck.IsNumeric(this.ContractMoney))
+                    //{
+                    //    this.ContractMoney = "0";
+                    //}
                 }
 
                 if (page1003 != null)
@@ -221,6 +236,10 @@ namespace ProjectTransferService
                     this.DevModle = page1003.Custom_4;
                     //贡献值（万）		[CustomerFieldTrackExt2].[Custom_7],pageNumber=1003
                     this.ScoreMoney = page1003.Custom_7;
+                    //if (!DataCheck.IsNumeric(this.ScoreMoney))
+                    //{
+                    //    this.ScoreMoney = "0";
+                    //}
                     //转产项目[CustomerFieldTrackExt2].[Custom_5],pageNumber=1003
                     this.TransfterProject = page1003.Custom_5;
 
@@ -262,27 +281,27 @@ namespace ProjectTransferService
                             switch (dicAccountType[Convert.ToInt32(accountID)])
                             {
                                 case "测试工程师":
-                                    this.TestEngineerIDs.Add(Convert.ToInt32(accountID));
+                                    this.TestEngineerIDs.Add(item);
                                     break;
                                 case "开发工程师":
-                                    this.DevEngineerIDs.Add(Convert.ToInt32(accountID));
+                                    this.DevEngineerIDs.Add(item);
                                     break;
                                 case "配置管理员":
-                                    this.ConfigManagerIDs.Add(Convert.ToInt32(accountID));
+                                    this.ConfigManagerIDs.Add(item);
                                     break;
                                 case "质量管理员":
-                                    this.QualityManagerIDs.Add(Convert.ToInt32(accountID));
+                                    this.QualityManagerIDs.Add(item);
                                     break;
                                 case "需求分析师":
-                                    this.RequirementAnalystIDs.Add(Convert.ToInt32(accountID));
+                                    this.RequirementAnalystIDs.Add(item);
                                     break;
                                 default:
-                                    this.OtherMemberList.Add(Convert.ToInt32(accountID));
+                                    this.OtherMemberList.Add(item);
                                     break;
                             }
                         }
                         else
-                            this.OtherMemberList.Add(Convert.ToInt32(accountID));
+                            this.OtherMemberList.Add(item);
 
                     }
                 }
@@ -290,6 +309,7 @@ namespace ProjectTransferService
 
             }
         }
+
 
         public override string ToString()
         {

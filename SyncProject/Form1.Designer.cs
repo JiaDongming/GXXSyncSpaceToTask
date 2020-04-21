@@ -59,7 +59,7 @@
             // 
             this.resultText.Location = new System.Drawing.Point(71, 178);
             this.resultText.Name = "resultText";
-            this.resultText.Size = new System.Drawing.Size(677, 229);
+            this.resultText.Size = new System.Drawing.Size(1039, 285);
             this.resultText.TabIndex = 2;
             this.resultText.Text = "";
             // 
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1193, 511);
             this.Controls.Add(this.resultText);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblTitle);

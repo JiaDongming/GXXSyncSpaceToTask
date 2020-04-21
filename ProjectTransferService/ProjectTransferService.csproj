@@ -55,6 +55,7 @@
     <Compile Include="AccountTypes.cs">
       <DependentUpon>GXX.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\APIParam.cs" />
     <Compile Include="Bug.cs">
       <DependentUpon>GXX.tt</DependentUpon>
     </Compile>

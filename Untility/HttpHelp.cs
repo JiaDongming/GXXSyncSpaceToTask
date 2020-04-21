@@ -59,7 +59,7 @@ namespace Untility
             //设置请求类型
             httpWebRequest.Method = "POST";
             //设置超时时间
-            httpWebRequest.Timeout = 20000;
+            httpWebRequest.Timeout = 50000;
             //将参数写入请求地址中
             httpWebRequest.GetRequestStream().Write(bs, 0, bs.Length);
 
