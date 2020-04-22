@@ -31,6 +31,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.resultText = new System.Windows.Forms.RichTextBox();
+            this.btnExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -63,11 +64,22 @@
             this.resultText.TabIndex = 2;
             this.resultText.Text = "";
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(954, 469);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(156, 33);
+            this.btnExport.TabIndex = 3;
+            this.btnExport.Text = "导出结果";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1193, 511);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.resultText);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblTitle);
@@ -84,6 +96,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.RichTextBox resultText;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 

@@ -7,6 +7,8 @@ using System.Text;
 using Untility;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace ProjectTransferService
 {
@@ -16,6 +18,8 @@ namespace ProjectTransferService
   public  class ProjectTransfer
     {
         List<Project> tobeSyncedProjects = null;
+        static string ServerName = ConfigurationManager.AppSettings["ServerName"];
+        static string UserToken = ConfigurationManager.AppSettings["UserToken"];
         public ProjectTransfer()
         {
             tobeSyncedProjects = new List<Project>();
@@ -77,15 +81,15 @@ namespace ProjectTransferService
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        public int GenerateProjectTask(Project project)
+        public JToken GenerateProjectTask(Project project)
         {
             //根据project里的信息准备调用参数
 
             //调用HttpHelp类来调用api生成task
 
             //获取返回task id，，存入到项目实体类中
-            string token = "668CBA7B-5B82-456d-8409-6E257AEC4607";
-            string ApiTaskUrl = "http://localhost/DevTrackApi/api/Task/Create?languageid=2&token=" + token;
+            //string token = "668CBA7B-5B82-456d-8409-6E257AEC4607";
+            string ApiTaskUrl = "http://"+ ServerName + "/DevTrackApi/api/Task/Create?languageid=2&token=" + UserToken;
 
 
             var json_req = new
@@ -344,10 +348,12 @@ namespace ProjectTransferService
                 project.ProjectInfoTaskID = Convert.ToInt32(json["Data"]);
                 UpdateMembers(project);
                 //tobeSyncedProjects.Remove(project);
-                return Convert.ToInt32(json["Data"]);
+                //return Convert.ToInt32(json["Data"]);
+                return json;
             }
-             
-            else return 0;
+
+            //else return 0;
+            else return json;
 
         }
          

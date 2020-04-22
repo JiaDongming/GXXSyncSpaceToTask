@@ -262,6 +262,9 @@ namespace ProjectTransferService
                     this.TestManager = page1004.Custom_2;
                     this.TestManagerIDs = (from c in bugselection where c.FieldID == 1000302 select c.FieldSelectionID).ToList<int>();
                 }
+
+                this.ProjectSpaceTitle = subproject.Title;//项目标题
+
                 //项目团队资源（subprojectowners）
                 this.SubProjectOwners = (from c in resource select c.TeamMemberID).ToList<int>();
                 Dictionary<int, string> dicAccountType = new Dictionary<int, string>();
