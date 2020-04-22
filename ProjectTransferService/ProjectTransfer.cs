@@ -161,13 +161,13 @@ namespace ProjectTransferService
                      {
                          FieldId = 12405,//计划开始
                          Option = 1,
-                         FieldValue = project.PlanStartDate==null?string.Empty:project.PlanStartDate.Substring(0,10)
+                         FieldValue = project.PlanStartDate==null||project.PlanStartDate==""?string.Empty:project.PlanStartDate
                      },
                          new APIParam
                      {
                          FieldId = 12406,//计划结束
                          Option = 1,
-                         FieldValue = project.PlanFinishDate==null?string.Empty:project.PlanFinishDate.Substring(0,10)
+                         FieldValue = project.PlanFinishDate==null||project.PlanFinishDate==""?string.Empty:project.PlanFinishDate
                      },
                           new APIParam
                      {
@@ -233,7 +233,7 @@ namespace ProjectTransferService
                      {
                          FieldId = 12507,//结束时间
                          Option = 1,
-                         FieldValue = project.EndDate==null?string.Empty:project.EndDate.Substring(0,10)
+                         FieldValue = project.EndDate==null || project.EndDate==""?string.Empty:project.EndDate
                      },
                           new APIParam
                      {
@@ -265,7 +265,7 @@ namespace ProjectTransferService
             //    }
             //}
 
-            List<APIParam> newjson_req = (from c in json_req.FieldValues where c.FieldValue != "" || c.FieldValue.ToString() != string.Empty select c).ToList<APIParam>();
+            List<APIParam> newjson_req = (from c in json_req.FieldValues where c.FieldValue != "" || c.FieldValue != string.Empty select c).ToList<APIParam>();
             var json_req2 = new
             {
                 ProjectId = 502,

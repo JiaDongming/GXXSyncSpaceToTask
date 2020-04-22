@@ -203,10 +203,10 @@ namespace ProjectTransferService
                     this.ProductName = page1002.Custom_4;
 
                     //计划开始时间[CustomerFieldTrackExt2].[Custom_2],pageNumber = 1002
-                    this.PlanStartDate = page1002.Custom_2;
+                    this.PlanStartDate = page1002.Custom_2==null?"":page1002.Custom_2.Substring(0,10) ;
 
                     //计划完成时间[CustomerFieldTrackExt2].[Custom_3],pageNumber = 1002
-                    this.PlanFinishDate = page1002.Custom_3;
+                    this.PlanFinishDate = page1002.Custom_3 == null ? "" : page1002.Custom_3.Substring(0,10);
 
                     //项目经理[CustomerFieldTrackExt2].[Custom_1],pageNumber = 1002 --Fieldid=1000101
                     this.ProjectManager = page1002.Custom_1;
@@ -250,7 +250,7 @@ namespace ProjectTransferService
                     //批量发货[CustomerFieldTrackExt2].[Custom_6],pageNumber=1003
                     this.PatchDeliver = page1003.Custom_6;
                     //结束时间 [CustomerFieldTrackExt2].[Custom_8],pageNumber = 1003
-                    this.EndDate = page1003.Custom_8;
+                    this.EndDate = page1003.Custom_8==null?"":page1003.Custom_8.Substring(0,10);
                 }
 
                 if (page1004!=null)
