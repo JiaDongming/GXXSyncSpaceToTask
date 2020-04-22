@@ -163,6 +163,8 @@ namespace ProjectTransferService
                 var accounttype = from a in dbcontext.AccountTypes where a.ProjectID == 502 select a;
                 var projectMemberList = from a in dbcontext.ProjectMembers where a.ProjectID == 502 select a;
                 var subproject = (from s in dbcontext.SubProject where s.ProjectID == 502 && s.SubProjectID == spaceId select s).SingleOrDefault();
+                //主要负责人
+                this.PrimaryOwnerID = subproject.CurrentOwner == -1 || subproject.CurrentOwner == null ? subproject.CreatedByPerson : subproject.CurrentOwner;
                 if (page1001!=null)
                 {
                     // 项目编码[CustomerFieldTrackExt2].[Custom_3],pageNumber = 1001
@@ -192,8 +194,7 @@ namespace ProjectTransferService
                     //商机编号[CustomerFieldTrackExt2].[Custom_4],pageNumber = 1001
                     this.ShangJiID = page1001.Custom_4;
 
-                    //主要负责人
-                    this.PrimaryOwnerID = subproject.CurrentOwner == -1 || subproject.CurrentOwner ==null? subproject.CreatedByPerson : subproject.CurrentOwner;
+                
 
                 }
                 if (page1002 != null)
@@ -309,11 +310,87 @@ namespace ProjectTransferService
                     }
                 }
 
+                #region 项目团队成员文本
+
+                char newLine = '\n';
+                //所有人员
+                if (this.ProjectManagerID>0 )
+                {
+                    string fullname = (from c in login where c.PersonID == this.ProjectManagerID select c.FullName).SingleOrDefault();
+                    this.ProjectResourceText = "项目经理：" + fullname + newLine;
+                   
+                }
+
+                if (this.ProductManagerID >0)
+                {
+                    string fullname = (from c in login where c.PersonID == this.ProductManagerID select c.FullName).SingleOrDefault();
+                    this.ProjectResourceText = this.ProjectResourceText + "产品经理：" + fullname + newLine;
+                 
+                }
+
+                if (this.DevEngineerIDs.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "开发负责人：" + GetMemberText(this.DevManagerIDs) + newLine;
+                    
+                }
+
+                if (this.DevEngineerIDs.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "开发工程师：" + GetMemberText(this.DevEngineerIDs) + newLine;
+                  
+                }
+
+                if (this.TestManager != null && this.TestManager.Length != 0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "测试负责人：" + GetMemberText(this.TestManagerIDs) + newLine;
+                
+                }
+
+                if (this.TestEngineerIDs.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "测试工程师：" + GetMemberText(this.TestEngineerIDs) + newLine;
+                   
+                }
+
+                if (this.QualityManagerIDs.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "质量管理员：" + GetMemberText(this.QualityManagerIDs) + newLine;
+                   
+                }
+
+                if (this.ConfigManagerIDs.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "配置管理员：" + GetMemberText(this.ConfigManagerIDs) + newLine;
+              
+                }
+
+                if (this.OtherMemberList.Count>0)
+                {
+                    this.ProjectResourceText = this.ProjectResourceText + "其他成员：" + GetMemberText(this.OtherMemberList) + newLine;
+                   
+                }
+
+                #endregion
+
+
 
             }
         }
 
+        private static string GetMemberText(List<int> memberIDs)
+        {
+            if (memberIDs.Count > 0)
+            {
+                using (GXX_DS_0403Entities dbcontext = new GXX_DS_0403Entities())
+                {
+                    var SelectedProjecMembers = (from persons in dbcontext.LogIn join list in memberIDs on persons.PersonID equals list select persons).ToList<LogIn>();
+                    var ProjectMembersText = string.Join(",", (from member in SelectedProjecMembers select member.FName).ToArray());
+                    return ProjectMembersText;
+                }
 
+            }
+            return "";
+        }
         public override string ToString()
         {
             return $"当前更新的项目信息是: 项目编码" + this.ProjectCode + "...其他信息待补充";

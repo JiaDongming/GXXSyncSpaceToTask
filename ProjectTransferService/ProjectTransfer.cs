@@ -107,7 +107,7 @@ namespace ProjectTransferService
                  {
                      FieldId = 101,//title
                      Option = 1,
-                     FieldValue = project.ProjectTtile==null?string.Empty:project.ProjectTtile
+                     FieldValue = project.ProjectSpaceTitle==null?string.Empty:project.ProjectSpaceTitle
                  },
                    new APIParam
                    {
@@ -246,6 +246,12 @@ namespace ProjectTransferService
                          FieldId = 102,//描述
                          Option = 1,
                          FieldValue =project.ProjectDesc==null?string.Empty:project.ProjectDesc
+                     },
+                           new APIParam
+                     {
+                         FieldId = 12111,//描述
+                         Option = 1,
+                         FieldValue =project.ProjectResourceText==null?string.Empty:project.ProjectResourceText
                      },
               },
             };
