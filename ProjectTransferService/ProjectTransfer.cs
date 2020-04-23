@@ -376,9 +376,17 @@ namespace ProjectTransferService
             using (GXX_DS_0403Entities dbcontext= new GXX_DS_0403Entities())
             {
                 //项目经理 id=2
-                dbcontext.Database.ExecuteSqlCommand($"insert into BugSelectionInfo values(502,{project.ProjectInfoTaskID},2,{project.ProjectManagerID})");
+                if (dbcontext.BugSelectionInfo.Where(c => c.ProjectID == 502 && c.BugID == project.ProjectInfoTaskID && c.FieldID == 2 && c.FieldSelectionID == project.ProjectManagerID).Count() == 0)
+                {
+                    dbcontext.Database.ExecuteSqlCommand($"insert into BugSelectionInfo values(502,{project.ProjectInfoTaskID},2,{project.ProjectManagerID})");
+                }
+
                 //产品经理 id=1603
-                dbcontext.Database.ExecuteSqlCommand($"insert into BugSelectionInfo values(502,{project.ProjectInfoTaskID},1603,{project.ProductManagerID})");
+                if (dbcontext.BugSelectionInfo.Where(c => c.ProjectID == 502 && c.BugID == project.ProjectInfoTaskID && c.FieldID == 1603 && c.FieldSelectionID == project.ProjectManagerID).Count() == 0)
+                {
+                    dbcontext.Database.ExecuteSqlCommand($"insert into BugSelectionInfo values(502,{project.ProjectInfoTaskID},1603,{project.ProductManagerID})");
+                }
+                   
                 //开发负责人 id=12407
                 PatchAddUser(12407, project, project.DevManagerIDs);
                 //测试负责人 id=12408
