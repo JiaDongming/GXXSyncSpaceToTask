@@ -332,73 +332,73 @@ namespace ProjectTransferService
                     this.ProjectResourceText = "项目经理：" + fullname + newLine;
                    
                 }
-                else
-                    this.ProjectResourceText = "项目经理：" + newLine;
+                //else
+                //    this.ProjectResourceText = "项目经理：" + newLine;
 
                 if (this.ProductManagerID >0)
                 {
                     string fullname = (from c in login where c.PersonID == this.ProductManagerID select c.FullName).SingleOrDefault();
                     this.ProjectResourceText = this.ProjectResourceText + "产品经理：" + fullname + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "产品经理：" +  newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "产品经理：" +  newLine;
 
                 if (this.RequirementAnalystIDs.Count > 0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "需求分析师：" + GetMemberText(this.RequirementAnalystIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "需求分析师："  + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "需求分析师："  + newLine;
 
                 if (this.DevManagerIDs.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "开发负责人：" + GetMemberText(this.DevManagerIDs) + newLine;
                     
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "开发负责人：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "开发负责人：" + newLine;
 
                 if (this.DevEngineerIDs.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "开发工程师：" + GetMemberText(this.DevEngineerIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "开发工程师：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "开发工程师：" + newLine;
 
                 if (this.TestManagerIDs.Count > 0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "测试负责人：" + GetMemberText(this.TestManagerIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "测试负责人：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "测试负责人：" + newLine;
 
                 if (this.TestEngineerIDs.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "测试工程师：" + GetMemberText(this.TestEngineerIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "测试工程师：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "测试工程师：" + newLine;
 
                 if (this.QualityManagerIDs.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "质量管理员：" + GetMemberText(this.QualityManagerIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "质量管理员：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "质量管理员：" + newLine;
 
                 if (this.ConfigManagerIDs.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "配置管理员：" + GetMemberText(this.ConfigManagerIDs) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "配置管理员：" + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "配置管理员：" + newLine;
 
                 if (this.OtherMemberList.Count>0)
                 {
                     this.ProjectResourceText = this.ProjectResourceText + "其他成员：" + GetMemberText(this.OtherMemberList) + newLine;
                 }
-                else
-                    this.ProjectResourceText = this.ProjectResourceText + "其他成员："  + newLine;
+                //else
+                //    this.ProjectResourceText = this.ProjectResourceText + "其他成员："  + newLine;
 
                 #endregion
 
