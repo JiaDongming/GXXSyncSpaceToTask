@@ -169,7 +169,7 @@ namespace ProjectTransferService
                 var page1002 = (from c in info where c.PageNumber == 1002 select c).SingleOrDefault();
                 var page1003 = (from c in info where c.PageNumber == 1003 select c).SingleOrDefault();
                 var page1004 = (from c in info where c.PageNumber == 1004 select c).SingleOrDefault();
-                var login = from l in dbcontext.LogIn select new {FullName= l.FName +" "+ l.LName , PersonID=l.PersonID};
+                var login = from l in dbcontext.LogIn select new {FullName= l.FName +" "+ l.LName ,l.FName, PersonID=l.PersonID};
                 var bugselection = from c in dbcontext.BugSelectionInfo where c.ProjectID == 502 && c.BugID == this.HiddenTaskID select c;
                 var resource = from m in dbcontext.SubProjectOwners where m.ProjectID == 502 && m.SubProjectID == spaceId select m;
                 var accounttype = from a in dbcontext.AccountTypes where a.ProjectID == 502 select a;
@@ -328,7 +328,7 @@ namespace ProjectTransferService
                 //所有人员
                 if (this.ProjectManagerID>0 )
                 {
-                    string fullname = (from c in login where c.PersonID == this.ProjectManagerID select c.FullName).SingleOrDefault();
+                    string fullname = (from c in login where c.PersonID == this.ProjectManagerID select c.FName).SingleOrDefault();
                     this.ProjectResourceText = "项目经理：" + fullname + newLine;
                    
                 }
@@ -337,7 +337,7 @@ namespace ProjectTransferService
 
                 if (this.ProductManagerID >0)
                 {
-                    string fullname = (from c in login where c.PersonID == this.ProductManagerID select c.FullName).SingleOrDefault();
+                    string fullname = (from c in login where c.PersonID == this.ProductManagerID select c.FName).SingleOrDefault();
                     this.ProjectResourceText = this.ProjectResourceText + "产品经理：" + fullname + newLine;
                 }
                 //else
