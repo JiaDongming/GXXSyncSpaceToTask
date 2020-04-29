@@ -253,6 +253,36 @@ namespace ProjectTransferService
                          Option = 1,
                          FieldValue =project.ProjectResourceText==null?string.Empty:project.ProjectResourceText
                      },
+                          new APIParam
+                     {
+                         FieldId = 12606,//预转产时间
+                         Option = 1,
+                         FieldValue = project.PlanTransferTime==null||project.PlanTransferTime==""?string.Empty:project.PlanTransferTime
+                     },
+                          new APIParam
+                     {
+                         FieldId = 12607,//实际转产时间
+                         Option = 1,
+                         FieldValue = project.ActualTransferTime==null||project.ActualTransferTime==""?string.Empty:project.ActualTransferTime
+                     },
+                          new APIParam
+                     {
+                         FieldId = 12608,//预退市时间
+                         Option = 1,
+                         FieldValue = project.PlanDelistTime==null||project.PlanDelistTime==""?string.Empty:project.PlanDelistTime
+                     },
+                          new APIParam
+                     {
+                         FieldId = 12701,//实际退市时间
+                         Option = 1,
+                         FieldValue = project.ActualDelistTime==null||project.ActualDelistTime==""?string.Empty:project.ActualDelistTime
+                     },
+                          new APIParam
+                     {
+                         FieldId = 12702,//实际退市时间
+                         Option = 1,
+                         FieldValue =  project.ERPCode==null?string.Empty:project.ERPCode
+                     },
               },
             };
             #region 参数异常未空时判断

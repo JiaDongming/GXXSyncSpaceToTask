@@ -127,6 +127,18 @@ namespace ProjectTransferService
         public int? ProjectInfoTaskID { get; set; }
         public string ProjectSpaceTitle { get; set; }
 
+        //新增5个字段
+        [DisplayName("预转产时间")]
+        public string PlanTransferTime { get; set; }
+        [DisplayName("实际转产时间")]
+        public string ActualTransferTime { get; set; }
+        [DisplayName("预退市时间")]
+        public string PlanDelistTime { get; set; }
+        [DisplayName("实际退市时间")]
+        public string ActualDelistTime { get; set; }
+        [DisplayName("ERP编号")]
+        public string ERPCode { get; set; }
+
         public Project()
         {
             SelectedProjecMembers = new List<LogIn>();
@@ -274,6 +286,17 @@ namespace ProjectTransferService
                     //测试负责人(多选FieldID=1000302)	[CustomerFieldTrackExt2].[Custom_2],pageNumber=1004
                     this.TestManager = page1004.Custom_2;
                     this.TestManagerIDs = (from c in bugselection where c.FieldID == 1000302 select c.FieldSelectionID).ToList<int>();
+
+                    //预转产时间
+                    this.PlanTransferTime = page1004.Custom_3 == null ? "" : handleDate(page1004.Custom_3);
+                    //实际转产时间
+                    this.PlanTransferTime = page1004.Custom_4 == null ? "" : handleDate(page1004.Custom_4);
+                    //预退市时间
+                    this.PlanTransferTime = page1004.Custom_5 == null ? "" : handleDate(page1004.Custom_5);
+                    //实际退市时间
+                    this.PlanTransferTime = page1004.Custom_6 == null ? "" : handleDate(page1004.Custom_6);
+                    //ERP编号
+                    this.ERPCode = page1004.Custom_7;
                 }
 
                 this.ProjectSpaceTitle = subproject.Title;//项目标题
