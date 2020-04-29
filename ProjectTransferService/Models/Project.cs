@@ -290,11 +290,11 @@ namespace ProjectTransferService
                     //预转产时间
                     this.PlanTransferTime = page1004.Custom_3 == null ? "" : handleDate(page1004.Custom_3);
                     //实际转产时间
-                    this.PlanTransferTime = page1004.Custom_4 == null ? "" : handleDate(page1004.Custom_4);
+                    this.ActualTransferTime = page1004.Custom_4 == null ? "" : handleDate(page1004.Custom_4);
                     //预退市时间
-                    this.PlanTransferTime = page1004.Custom_5 == null ? "" : handleDate(page1004.Custom_5);
+                    this.PlanDelistTime = page1004.Custom_5 == null ? "" : handleDate(page1004.Custom_5);
                     //实际退市时间
-                    this.PlanTransferTime = page1004.Custom_6 == null ? "" : handleDate(page1004.Custom_6);
+                    this.ActualDelistTime = page1004.Custom_6 == null ? "" : handleDate(page1004.Custom_6);
                     //ERP编号
                     this.ERPCode = page1004.Custom_7;
                 }
